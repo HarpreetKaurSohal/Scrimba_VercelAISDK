@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import { createOpenAI } from '@ai-sdk/openai';
 import { createClient } from '@supabase/supabase-js'
 import dotenv from "dotenv";
 
@@ -6,12 +6,13 @@ dotenv.config();
 
 /** Ensure the OpenAI API key is available and correctly configured */
 if (!process.env.OPENAI_API_KEY) {
-    throw new Error("OpenAI API key is missing or invalid.");
+  throw new Error('Missing OPENAI_API_KEY environment variable');
 }
 
-export const openai = new OpenAI({
+export const openai = createOpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-})
+});
+
 
 /** Supabase config */
 const supabasePrivateKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
